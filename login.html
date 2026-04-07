@@ -240,8 +240,9 @@ html { background: #05100d; }
         'auth/invalid-credential':'ID эсвэл нууц үг буруу байна.',
         'auth/too-many-requests': 'Хэт олон оролдлого. Түр хүлээнэ үү.',
       };
-      fErr.textContent = m[e.code] || 'Нэвтрэхэд алдаа гарлаа.';
-      fErr.classList.add('on');
+      fErr.textContent = m[e.code] || e.code + ': ' + e.message;
+
+     fErr.classList.add('on');
     }
   });
   [uidEl, pwEl].forEach(el => el.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); }));
