@@ -59,8 +59,8 @@ html { background: #05100d; }
   gap: 6px; margin-bottom: 22px; font-size: 0.58rem;
   letter-spacing: 0.2em; color: #3d6e55; text-transform: uppercase;
 }
-.fb-dot { width: 7px; height: 7px; border-radius: 50%; background-color: #FFA724; flex-shrink: 0; }
-.fb-name { color: #FFA724; font-weight: 700; }
+.fb-dot { width: 7px; height: 7px; border-radius: 50%; background-color: #48ffa7; flex-shrink: 0; }
+.fb-name { color: #48ffa7; font-weight: 700; }
 .field { margin-bottom: 16px; }
 .field label {
   display: block; font-size: 0.6rem; letter-spacing: 0.24em;
@@ -195,16 +195,21 @@ html { background: #05100d; }
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
   const firebaseConfig = {
-    apiKey:            "YOUR_API_KEY",
-    authDomain:        "YOUR_PROJECT.firebaseapp.com",
-    projectId:         "YOUR_PROJECT_ID",
-    storageBucket:     "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId:             "YOUR_APP_ID"
+    apiKey:            "AIzaSyBIoBE1qtOkkumkg1377A1a9LJAzVcafcY",
+    authDomain:        "udmiin-helkhee.firebaseapp.com",
+    databaseURL:       "https://udmiin-helkhee-default-rtdb.firebaseio.com",
+    projectId:         "udmiin-helkhee",
+    storageBucket:     "udmiin-helkhee.firebasestorage.app",
+    messagingSenderId: "91518167241",
+    appId:             "1:91518167241:web:3fdfd90c080b07df3d8518",
+    measurementId:     "G-X1N4TX3YT9"
   };
+
   const app  = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+
   const uidEl  = document.getElementById('uid');
   const pwEl   = document.getElementById('pw');
   const btn    = document.getElementById('loginBtn');
@@ -212,6 +217,7 @@ html { background: #05100d; }
   const pwErr  = document.getElementById('pwErr');
   const fErr   = document.getElementById('fireErr');
   const sovEl  = document.getElementById('sov');
+
   document.getElementById('eyeBtn').addEventListener('click', () => {
     const show = pwEl.type === 'password';
     pwEl.type = show ? 'text' : 'password';
@@ -219,6 +225,7 @@ html { background: #05100d; }
       ? `<line x1="1" y1="1" x2="23" y2="23"/><path d="M17.94 17.94A10 10 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9 9 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><circle cx="12" cy="12" r="3"/>`
       : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
   });
+
   btn.addEventListener('click', async () => {
     uidErr.classList.remove('on'); pwErr.classList.remove('on');
     fErr.classList.remove('on'); fErr.textContent = '';
@@ -226,7 +233,7 @@ html { background: #05100d; }
     if (!uidEl.value.trim()) { uidErr.classList.add('on'); ok = false; }
     if (!pwEl.value)         { pwErr.classList.add('on');  ok = false; }
     if (!ok) return;
-    const email = uidEl.value.trim().includes('@') ? uidEl.value.trim() : `${uidEl.value.trim()}@udmiin.mn`;
+    const email = uidEl.value.trim().includes('@') ? uidEl.value.trim() : `${uidEl.value.trim()}@urgiin.mn`;
     btn.classList.add('loading'); btn.disabled = true;
     try {
       await signInWithEmailAndPassword(auth, email, pwEl.value);
@@ -240,11 +247,11 @@ html { background: #05100d; }
         'auth/invalid-credential':'ID эсвэл нууц үг буруу байна.',
         'auth/too-many-requests': 'Хэт олон оролдлого. Түр хүлээнэ үү.',
       };
-      fErr.textContent = m[e.code] || e.code + ': ' + e.message;
-
+      fErr.textContent = m[e.code] || e.message;
       fErr.classList.add('on');
     }
   });
+
   [uidEl, pwEl].forEach(el => el.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); }));
 </script>
 </body>
